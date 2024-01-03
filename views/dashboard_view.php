@@ -23,7 +23,7 @@
                     <ul class="mt-6 leading-10">
                         <li class="relative px-2 py-1 ">
                             <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 cursor-pointer hover:text-green-500"
-                               href="dashbord.html">
+                               href="index.php?page=dashboard">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                      viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -34,7 +34,7 @@
                         </li>
                         <li class="relative px-2 py-1" >
                             <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 cursor-pointer hover:text-green-500"
-                               href="products.html">
+                               href="index.php?page=products">
                                     <span
                                         class="inline-flex items-center  text-sm font-semibold text-white hover:text-green-400">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
@@ -54,7 +54,7 @@
                         </li>
                         <li class="relative px-2 py-1" >
                             <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 cursor-pointer hover:text-green-500"
-                               href="users.html">
+                               href="index.php?page=users">
                                     <span
                                         class="inline-flex items-center  text-sm font-semibold text-white hover:text-green-400">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="none"
@@ -250,15 +250,20 @@
                                     </a>
                                 </li>
                                 <li class="flex">
-                                    <a class="text-white inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
-                                       href="#">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="none"
-                                             viewBox="0 0 24 24" stroke="currentColor">
+                                    <form method="post" action="index.php?page=logout" id="logoutForm">
+
+                                    <a class="text-white inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 cursor-pointer"
+                                       href="#" onclick="document.getElementById('logoutForm').submit()">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24"
+                                             stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                   d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                                         </svg>
-                                        <span>Log out</span>
+                                        <button name="logout">Log out</button>
                                     </a>
+                                    </form>
+
+
                                 </li>
                             </ul>
                         </template>

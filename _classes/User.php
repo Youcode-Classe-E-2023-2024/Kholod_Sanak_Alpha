@@ -69,4 +69,9 @@ class User
         $_SESSION["login"] = true;
         header('Location: ../index.php?page=dashboard');
     }
+    static function logout () {
+        session_destroy();
+        header("Location: ../index.php?page=authentif");
+        exit();
+    }
 }

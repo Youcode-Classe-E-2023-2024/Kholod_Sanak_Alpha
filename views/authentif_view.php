@@ -17,7 +17,7 @@
                                     <div class="center-wrap">
                                         <div class="section text-center">
                                             <h4 class=" title mb-4 pb-3">Log In</h4>
-                                            <form method="post" action="index.php?page=login"
+                                            <form method="post" action="index.php?page=authentif"
                                                   enctype="multipart/form-data">
                                                 <div class="form-group">
                                                     <input type="email" name="email" class="form-style"
@@ -41,7 +41,7 @@
                                     <div class="center-wrap">
                                         <div class="section text-center">
                                             <h4 class=" title mb-4 pb-3">Sign Up</h4>
-                                            <form method="post" action="index.php?page=login" enctype="multipart/form-data">
+                                            <form method="post" action="index.php?page=authentif" enctype="multipart/form-data">
                                                 <!-- input for profil picture -->
                                                 <input type="file"  name="profile-picture" id="profile-picture" accept="image/*">
                                                 <label for="profile-picture" class="cursor-pointer bg-grey-500 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded inline-block mt-2">Upload Picture</label>

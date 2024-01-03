@@ -10,6 +10,26 @@ spl_autoload_register(function ($class) {
     include_once '_classes/' . $class . '.php';
 });
 
+//if (!isset($_SESSION["authentif"])) {
+//    // If the session variable is not set, check if the requested page is "authentif"
+//    if (isset($_GET['page']) && $_GET['page'] == "authentif") {
+//        $page = 'authentif';
+//    } else {
+//        // If not, set the default page to "home"
+//        $page = 'home';
+//    }
+//} else {
+//    // If the session variable is set, set the page to "home"
+//    $page = 'home';
+//}
+//
+//// Additional check for a valid page parameter in the URL
+//if (isset($_GET['page']) && !empty($_GET['page'])) {
+//    $page = trim(strtolower($_GET['page']));
+//}
+
+
+
 if (isset($_GET['page']) && !empty($_GET['page'])) {
     $page = trim(strtolower($_GET['page']));
 } else {
