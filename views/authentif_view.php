@@ -27,11 +27,13 @@
                                                     <input type="password" name="password" class="form-style"
                                                            placeholder="Your Password" id="password" autocomplete="off">
                                                 </div>
-                                                <button type="submit" name="signin" class="login1 login btn mt-4">
+                                                <button type="submit" name="signin" class="login1 login btn mt-4 hover:bg-blue-900 py-2 px-4 ">
                                                     Submit
                                                 </button>
-                                                <p class="login1 mb-0 mt-4 text-center"><a class="link">Forgot your
-                                                        password?</a></p>
+                                                <a href="index.php?page=reset" class="link">
+                                                    <p class="login1 mb-0 mt-4 text-center">Forgot your password?</p>
+                                                </a>
+
                                             </form>
                                         </div>
                                     </div>
@@ -43,7 +45,7 @@
                                             <h4 class=" title mb-4 pb-3">Sign Up</h4>
                                             <form method="post" action="index.php?page=authentif" enctype="multipart/form-data">
                                                 <!-- input for profil picture -->
-                                                <input type="file"  name="profile-picture" id="profile-picture" accept="image/*">
+                                                <input  class="hidden" type="file"  name="profile-picture" id="profile-picture" accept="image/*">
                                                 <label for="profile-picture" class="cursor-pointer bg-grey-500 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded inline-block mt-2">Upload Picture</label>
                                                 <div class="form-group mt-2">
                                                     <input type="text" name="logname" class="form-style" placeholder="Your Full Name" id="logname" autocomplete="off">
@@ -57,7 +59,7 @@
                                                     <input type="password" name="logpass" class="form-style" placeholder="Your Password" id="logpass" autocomplete="off">
                                                     <i class="input-icon uil uil-lock-alt"></i>
                                                 </div>
-                                                <button name="signup" class=" login1 btn mt-4">submit</button>
+                                                <button name="signup" class=" login1 btn mt-4 hover:bg-blue-900 py-2 px-4 ">submit</button>
                                             </form>
                                         </div>
                                     </div>
