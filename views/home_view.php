@@ -11,6 +11,9 @@
             data: {products: true},
             success: (data) => {
                 console.log(data);
+                let products = JSON.parse(data);
+
+
             }
         });
     }
