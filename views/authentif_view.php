@@ -17,7 +17,7 @@
                                     <div class="center-wrap">
                                         <div class="section text-center">
                                             <h4 class=" title mb-4 pb-3">Log In</h4>
-                                            <form method="post" action="index.php?page=authentif"
+                                            <form  id="loginForm"  method="post" action="index.php?page=authentif"
                                                   enctype="multipart/form-data">
                                                 <div class="form-group">
                                                     <input type="email" name="email" class="form-style"
@@ -27,6 +27,10 @@
                                                     <input type="password" name="password" class="form-style"
                                                            placeholder="Your Password" id="password" autocomplete="off">
                                                 </div>
+
+<!--                                                <button type="button" onclick="validateLogin()" class="login1 login btn mt-4 hover:bg-blue-900 py-2 px-4">-->
+<!--                                                    Submit-->
+<!--                                                </button>-->
                                                 <button type="submit" name="signin" class="login1 login btn mt-4 hover:bg-blue-900 py-2 px-4 ">
                                                     Submit
                                                 </button>
@@ -74,3 +78,29 @@
 </div>
 </div>
 
+<!--login -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    function validateLogin() {
+        // Get the form data
+        var formData = $("#loginForm").serialize();
+        console.log(formData);
+
+        // Send an AJAX request to the server for validation
+        $.ajax({
+            type: "POST",
+            url: "controllers/authentif_controller.php",
+            data: formData,
+            success: function(response) {
+                console.log(response);
+                // Handle the response from the server
+                alert(response);
+            },
+            error: function(xhr, status, error) {
+                // Handle any errors that occur during the AJAX request
+                console.error("AJAX Error: " + status + " - " + error);
+            }
+        });
+    }
+
+</script>
