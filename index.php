@@ -36,6 +36,7 @@ if (isset($_GET['page']) && !empty($_GET['page'])) {
     $page = 'home';
 }
 
+
 $all_pages = scandir('controllers');
 
 if (in_array($page . '_controller.php', $all_pages)) {
