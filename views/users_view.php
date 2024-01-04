@@ -316,62 +316,8 @@
                                             </tr>
                                             </thead>
                                             <tbody id="user-table" class="bg-white divide-y divide-gray-200">
-<!--                                            <tr>-->
-<!--                                                <td-->
-<!--                                                    class="px-6 py-4 whitespace-no-wrap text-sm leading-5">-->
-<!--                                                    <p>Username</p>-->
-<!--                                                    <p class="text-xs text-gray-400">NAME-->
-<!--                                                    </p>-->
-<!--                                                </td>-->
-<!--                                                <td-->
-<!--                                                    class="px-6 py-4 whitespace-no-wrap text-sm leading-5">-->
-<!--                                                    <p>77</p>-->
-<!--                                                </td>-->
-<!--                                                <td-->
-<!--                                                    class="px-6 py-4 whitespace-no-wrap text-sm leading-5">-->
-<!--                                                    <div class="flex text-grey-500">-->
-<!--                                                        <svg xmlns="http://www.w3.org/2000/svg"-->
-<!--                                                            class="w-5 h-5 mr-1" fill="none"-->
-<!--                                                            viewBox="0 0 24 24"-->
-<!--                                                            stroke="currentColor">-->
-<!--                                                            <path stroke-linecap="round"-->
-<!--                                                                stroke-linejoin="round"-->
-<!--                                                                stroke-width="2"-->
-<!--                                                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />-->
-<!--                                                        </svg> -->
-<!--                                                        <p>EMAIL</p>-->
-<!--                                                    </div>-->
-<!--                                                </td>-->
-<!--                                                <td-->
-<!--                                                    class="px-6 py-4 whitespace-no-wrap text-sm leading-5">-->
-<!--                                                    <div class="flex space-x-4">-->
-<!--                                                        <a href="#" class="text-blue-500 hover:text-blue-600">-->
-<!--                                                            <svg xmlns="http://www.w3.org/2000/svg"-->
-<!--                                                                 class="w-5 h-5 mr-1"-->
-<!--                                                                 fill="none" viewBox="0 0 24 24"-->
-<!--                                                                 stroke="currentColor">-->
-<!--                                                                <path stroke-linecap="round"-->
-<!--                                                                      stroke-linejoin="round"-->
-<!--                                                                      stroke-width="2"-->
-<!--                                                                      d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />-->
-<!--                                                            </svg>-->
-<!--                                                            <p>Edit</p>-->
-<!--                                                        </a>-->
-<!--                                                        <a href="#" class="text-red-500 hover:text-red-600">-->
-<!--                                                            <svg xmlns="http://www.w3.org/2000/svg"-->
-<!--                                                                 class="w-5 h-5 mr-1 ml-3"-->
-<!--                                                                 fill="none" viewBox="0 0 24 24"-->
-<!--                                                                 stroke="currentColor">-->
-<!--                                                                <path stroke-linecap="round"-->
-<!--                                                                      stroke-linejoin="round"-->
-<!--                                                                      stroke-width="2"-->
-<!--                                                                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />-->
-<!--                                                            </svg>-->
-<!--                                                            <p>Delete</p>-->
-<!--                                                        </a>-->
-<!--                                                    </div>-->
-<!--                                                </td>-->
-<!--                                            </tr>-->
+                                           <!--users list -->
+                                            <div class="edit-form-container"></div>
                                             </tbody>
                                         </table>
                                     </div>
@@ -391,22 +337,53 @@
 
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
+<!-- Form -->
 <script>
-    function getProducts() {
-        $.ajax({
-            type: "POST",
-            url: "controllers/users_controller.php",
-            data: { users: true },
-            success: function (data) {
-                console.log(data);
-                let users = JSON.parse(data);
+    function generateEditForm(user) {
+        let form = `
+        <form id="edit-form">
+            <label for="edit-username">Username:</label>
+            <input type="text" id="edit-username" value="${user.username}" required>
 
-                // Clear existing table rows
-                $('#user-table').empty();
+            <label for="edit-phone">Phone:</label>
+            <input type="text" id="edit-phone" value="${user.phone}" required>
 
-                users.forEach(user => {
-                    let row = `
+            <label for="edit-email">Email:</label>
+            <input type="email" id="edit-email" value="${user.email}" required>
+
+            <button type="submit">Save Changes</button>
+        </form>
+    `;
+
+        return form;
+    }
+
+</script>
+
+
+
+
+<!-- Get users -->
+<script>
+
+    $(document).ready(function () {
+        let allUsers = []; // Variable to store all users
+
+        // Function to get users from the server
+        function getUsers() {
+            $.ajax({
+                type: "POST",
+                url: "controllers/users_controller.php",
+                data: { users: true },
+                success: function (data) {
+                    let users = JSON.parse(data);
+                    allUsers = users;
+
+                    // Clear existing table rows
+                    $('#user-table').empty();
+
+                    users.forEach(user => {
+                        let row = `
                         <tr>
                             <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5">
                                 <p>${user.username}</p>
@@ -415,16 +392,16 @@
                                 <p>${user.phone}</p>
                             </td>
                             <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5">
-                                    <p>${user.email}</p>
+                                <p>${user.email}</p>
                             </td>
                             <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5">
                                 <div class="flex space-x-4">
-                                    <a href="#" class="text-blue-500 hover:text-blue-600">
+                                    <button class="text-blue-500 hover:text-blue-600 edit-user" data-user-id="${user.id}">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                         </svg>
                                         <p>Edit</p>
-                                    </a>
+                                    </button>
                                     <a href="#" class="text-red-500 hover:text-red-600">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-1 ml-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -435,14 +412,88 @@
                             </td>
                         </tr>
                     `;
-                    $('#user-table').append(row);
-                });
-            }
-        });
-    }
+                        $('#user-table').append(row);
+                    });
+                }
+            });
+        }
 
-    getProducts();
+        // Event listener for "Edit" button click
+        $(document).on('click', '.edit-user', function () {
+            // Get the user ID from the data attribute
+            let userId = $(this).data('user-id');
+
+            // Find the user in the array using the ID
+            let userToEdit = allUsers.find(user => user.id === userId);
+
+            //form
+
+            // Assume you have a form with updated user data
+            let updatedUserData = {
+                // Get the updated data from the form fields
+                // Example: username: $('#username-input').val(),
+                //          phone: $('#phone-input').val(),
+                //          email: $('#email-input').val(),
+            };
+
+            // After the modification is done, call the modifyUser function
+            modifyUser(userId, updatedUserData);
+        });
+
+        // Function to modify a user
+        function modifyUser(userId, updatedUserData) {
+            $.ajax({
+                type: "PUT",
+                url: "https://jsonplaceholder.typicode.com/users/" + userId,
+                data: updatedUserData,
+                success: function (response, textStatus, xhr) {
+                    if (xhr.status === 200) {
+                        alert("User with ID " + userId + " modified successfully!");
+
+                        getUsers();
+                    } else {
+                        // Handle other success cases if needed
+                    }
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.error("Error modifying user:", errorThrown);
+                }
+            });
+        }
+        getUsers();
+    });
+
 </script>
+
+
+
+
+
+
+<!-- Modify Users -->
+<script>
+    // function modifyUser(userId, updatedUserData) {
+    //     $.ajax({
+    //         type: "PUT",
+    //         url: "https://jsonplaceholder.typicode.com/users/" + userId,
+    //         data: updatedUserData,
+    //         success: function (response, textStatus, xhr) {
+    //             if (xhr.status === 200) {
+    //                 alert("User modified successfully!");
+    //                 // Optionally, you can perform additional actions here
+    //             } else {
+    //                 // Handle other success cases if needed
+    //             }
+    //         },
+    //         error: function (xhr, textStatus, errorThrown) {
+    //             console.error("Error modifying user:", errorThrown);
+    //         }
+    //     });
+    // }
+</script>
+
+
+
 
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script>
