@@ -1,6 +1,8 @@
 <?php
 
 
+
+
 /////////////////             Signup
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['signup'])) {
     $logname = filter_input(INPUT_POST, 'logname', FILTER_SANITIZE_STRING);
