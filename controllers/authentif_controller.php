@@ -1,7 +1,9 @@
 <?php
 
 
-
+//include_once '../_classes/User.php';
+//include_once '../_config/config.php';
+//include_once '../_config/db.php';
 
 /////////////////             Signup
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['signup'])) {
@@ -58,5 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["signin"])) {
         echo "User not found. Please check your email and try again.";
     }
 }
+
+
 
 
