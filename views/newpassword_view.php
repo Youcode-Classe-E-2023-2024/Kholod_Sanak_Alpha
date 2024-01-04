@@ -26,6 +26,8 @@ if (empty($selector) || empty($validator)) {
                                                     <h4 class="title mb-4 pb-3">New Password</h4>
                                                     <form method="post" action="index.php?page=newpassword" enctype="multipart/form-data">
                                                         <div class="form-group">
+                                                            <input type="hidden" name="validator" value="<?php echo $validator; ?>">
+                                                            <input type="hidden" name="selector" value="<?php echo $selector; ?>">
                                                             <input type="password" name="password" class="form-style" placeholder="Your New password" id="password" autocomplete="off" required>
                                                         </div>
                                                         <br>

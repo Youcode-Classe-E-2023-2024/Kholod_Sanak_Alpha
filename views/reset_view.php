@@ -1,7 +1,5 @@
 <?php
-
 ?>
-
 <div class="login">
     <div class="section">
         <div class="container">
@@ -15,13 +13,11 @@
                                     <div class="center-wrap">
                                         <div class="section text-center">
                                             <h4 class="title mb-4 pb-3">Reset Password</h4>
-                                            <form method="post" action="index.php?page=reset"
-                                                  enctype="multipart/form-data">
+                                            <form method="post" action="index.php?page=reset" enctype="multipart/form-data">
                                                 <div class="form-group">
-                                                    <input type="email" name="email" class="form-style"
-                                                           placeholder="Your Email" id="email" autocomplete="off" required>
+                                                    <input type="email" name="email" class="form-style" placeholder="Your Email" id="email" autocomplete="off" required>
                                                 </div>
-                                                <button type="submit" name="resetPassword" class="login1  btn mt-4 hover:bg-blue-900 py-2 px-4">
+                                                <button type="submit" name="resetPassword" class="login1 btn mt-4 hover:bg-blue-900 py-2 px-4">
                                                     Submit
                                                 </button>
                                                 <a href="index.php?page=authentif" class="link">
