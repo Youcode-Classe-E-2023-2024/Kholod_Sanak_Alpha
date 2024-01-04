@@ -8,8 +8,8 @@
             <div class="text-white">
                 <div class="flex p-2  bg-gray-800">
                     <div class="flex py-3 px-2 items-center">
-                        <p class="text-2xl text-green-500 font-semibold">SA</p <p class="ml-2 font-semibold italic">
-                            DASHBOARD</p>
+                        <p class="text-2xl text-green-500 font-semibold"></p <p class="ml-2 font-semibold italic">
+                            </p>
                     </div>
                 </div>
                 <div class="flex justify-center">
