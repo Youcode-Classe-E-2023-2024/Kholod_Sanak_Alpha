@@ -276,11 +276,19 @@
 
         <!-- List start-->
 
+
         <div class="col-span-12 mt-5">
+
             <div class="grid gap-2 grid-cols-1 lg:grid-cols-1">
                 <div class="bg-white p-4 shadow-lg rounded-lg">
+                    <div class="flex justify-between">
                     <h1 class="font-bold text-base">Table</h1>
+                    <button id="addUserForm" class="  mb-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        Add User
+                    </button>
+                   </div>
                     <div class="mt-4">
+
                         <div class="flex flex-col">
                             <div class="-my-2 overflow-x-auto">
                                 <div class="py-2 align-middle inline-block min-w-full">
@@ -315,9 +323,12 @@
                                                 </th>
                                             </tr>
                                             </thead>
+
                                             <tbody id="user-table" class="bg-white divide-y divide-gray-200">
                                            <!--users list -->
-                                            <div class="edit-form-container"></div>
+                                           <!--form-->
+                                           <div id="edit-form-container" class="max-w-md mx-auto mt-6">
+
                                             </tbody>
                                         </table>
                                     </div>
@@ -337,31 +348,6 @@
 
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<!-- Form -->
-<script>
-    function generateEditForm(user) {
-        let form = `
-        <form id="edit-form">
-            <label for="edit-username">Username:</label>
-            <input type="text" id="edit-username" value="${user.username}" required>
-
-            <label for="edit-phone">Phone:</label>
-            <input type="text" id="edit-phone" value="${user.phone}" required>
-
-            <label for="edit-email">Email:</label>
-            <input type="email" id="edit-email" value="${user.email}" required>
-
-            <button type="submit">Save Changes</button>
-        </form>
-    `;
-
-        return form;
-    }
-
-</script>
-
-
-
 
 <!-- Get users -->
 <script>
@@ -386,7 +372,7 @@
                         let row = `
                         <tr>
                             <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5">
-                                <p>${user.username}</p>
+                                <p data-username="${user.username}">${user.username}</p>
                             </td>
                             <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5">
                                 <p>${user.phone}</p>
@@ -396,13 +382,18 @@
                             </td>
                             <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5">
                                 <div class="flex space-x-4">
-                                    <button class="text-blue-500 hover:text-blue-600 edit-user" data-user-id="${user.id}">
+                                    <button class="text-blue-500 hover:text-blue-600 edit-user"
+                                         data-user-id="${user.id}"
+                                            data-username="${user.username}"
+                                            data-email="${user.email}"
+                                            data-phone="${user.phone}">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                         </svg>
                                         <p>Edit</p>
                                     </button>
-                                    <a href="#" class="text-red-500 hover:text-red-600">
+                                    <button class="text-red-500 hover:text-red-600 delete-user"  data-user-id="${user.id}"
+>
                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-1 ml-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                         </svg>
@@ -418,79 +409,41 @@
             });
         }
 
-        // Event listener for "Edit" button click
         $(document).on('click', '.edit-user', function () {
-            // Get the user ID from the data attribute
             let userId = $(this).data('user-id');
+            let username = $(this).data('username');
+            let email = $(this).data('email');
+            let phone = $(this).data('phone');
+            //console.log("userId: "+ userId + "username:" +username + "email" + email + "phone: "+phone);
+             window.location.href = 'index.php?page=modifyuser&userId=' + userId +
+                 '&username=' + encodeURIComponent(username) + '&email=' +
+                 encodeURIComponent(email) + '&phone=' + encodeURIComponent(phone);
 
-            // Find the user in the array using the ID
-            let userToEdit = allUsers.find(user => user.id === userId);
-
-            //form
-
-            // Assume you have a form with updated user data
-            let updatedUserData = {
-                // Get the updated data from the form fields
-                // Example: username: $('#username-input').val(),
-                //          phone: $('#phone-input').val(),
-                //          email: $('#email-input').val(),
-            };
-
-            // After the modification is done, call the modifyUser function
-            modifyUser(userId, updatedUserData);
         });
-
-        // Function to modify a user
-        function modifyUser(userId, updatedUserData) {
-            $.ajax({
-                type: "PUT",
-                url: "https://jsonplaceholder.typicode.com/users/" + userId,
-                data: updatedUserData,
-                success: function (response, textStatus, xhr) {
-                    if (xhr.status === 200) {
-                        alert("User with ID " + userId + " modified successfully!");
-
-                        getUsers();
-                    } else {
-                        // Handle other success cases if needed
-                    }
-                },
-                error: function (xhr, textStatus, errorThrown) {
-                    console.error("Error modifying user:", errorThrown);
-                }
-            });
-        }
         getUsers();
     });
 
+
+
+    //add form button
+    $(document).on('click', '#addUserForm', function (e) {
+        e.preventDefault();
+        window.location.href = 'index.php?page=userform';
+    });
+
 </script>
+<script src="<?= PATH ?>assets/js/delete_user.js"></script>
 
 
 
 
 
 
-<!-- Modify Users -->
-<script>
-    // function modifyUser(userId, updatedUserData) {
-    //     $.ajax({
-    //         type: "PUT",
-    //         url: "https://jsonplaceholder.typicode.com/users/" + userId,
-    //         data: updatedUserData,
-    //         success: function (response, textStatus, xhr) {
-    //             if (xhr.status === 200) {
-    //                 alert("User modified successfully!");
-    //                 // Optionally, you can perform additional actions here
-    //             } else {
-    //                 // Handle other success cases if needed
-    //             }
-    //         },
-    //         error: function (xhr, textStatus, errorThrown) {
-    //             console.error("Error modifying user:", errorThrown);
-    //         }
-    //     });
-    // }
-</script>
+
+
+
+
+
 
 
 
