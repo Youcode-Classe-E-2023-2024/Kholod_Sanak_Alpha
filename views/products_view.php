@@ -279,7 +279,12 @@
         <div  id="list" class="col-span-12 mt-5">
             <div class="grid gap-2 grid-cols-1 lg:grid-cols-1">
                 <div class="bg-white p-4 shadow-lg rounded-lg">
-                    <h1 class="font-bold text-base">Table</h1>
+                    <div class="flex justify-between">
+                        <h1 class="font-bold text-base">Table</h1>
+                        <button class=" mb-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            Add Product
+                        </button>
+                    </div>
                     <div class="mt-4">
                         <div class="flex flex-col">
                             <div class="-my-2 overflow-x-auto">
