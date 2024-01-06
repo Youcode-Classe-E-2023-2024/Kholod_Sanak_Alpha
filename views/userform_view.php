@@ -12,7 +12,7 @@
                     <!-- Username -->
                     <div class="lg:col-span-2">
                         <div id="userForms">
-                            <form id="addUserForm">
+                            <form class="addUserForm">
                                 <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
                                     <div class="md:col-span-3">
                                         <label for="username">Username</label>
@@ -67,7 +67,6 @@
 </div>
 
 <!-- multiple Add -->
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
     $(document).ready(function () {
         let formCounter = 1;
@@ -76,7 +75,7 @@
             event.preventDefault();
 
             // Clone the user form
-            const originalForm = $("#addUserForm");
+            const originalForm = $(".addUserForm");
             const clonedForm = originalForm.clone();
 
             // Append the cloned form to the userForms div
@@ -84,7 +83,6 @@
 
             // Display the form number outside the form
             $("#userForms").append(`<p class="text-red-500 m-6">Form ${formCounter + 1}</p>`);
-
             formCounter++;
         });
     });
