@@ -1,51 +1,39 @@
-function addUserFormSubmit() {
-    //e.preventDefault();
-
-    let formData = {
-        username: $('#username').val(),
-        phone: $('#phone').val(),
-        email: $('#email').val(),
-    };
-    //console.log(formData);
-
-    // Send POST request to the server
+function addUserFormSubmit(formData) {
     $.ajax({
         type: "POST",
         url: "https://jsonplaceholder.typicode.com/users",
-        data: formData, // Removed unnecessary object wrapping
+        data: formData,
         success: function (data, status) {
-            //console.log(status);
+            console.log(status);
+            console.log(data)
             if (status === "success") {
-                alert("User has been added successfully!");
+                //alert("User has been added successfully!");
             } else {
                 alert("Failed to add user. Please try again.");
             }
         }
     });
 }
-$(document).ready(function () {
-    $('#save').click(addUserFormSubmit);
-});
 
 function addMultipleUsers(userArray) {
     userArray.forEach((user) => {
-        addUserFormSubmit();
+        addUserFormSubmit(user);
     });
 }
 
+$(document).ready(function () {
+    $('#save').click(function (e) {
+        e.preventDefault();
+        var userForms = $("#userForms");
+        var formData = [];
 
+        userForms.find(".addUserForm").each(function (index, form) {
+            var username = $(form).find('[id="username"]').val();
+            var email = $(form).find('[id="email"]').val();
+            var phone = $(form).find('[id="phone"]').val();
 
-$('#save').click(function () {
-    //e.preventDefault();
-    var userForms = $("#addUserForm");
-    var formData = [];
-
-    userForms.each(function (index, form) {
-        var username = $(form).find('[id="username"]').val();
-        var email = $(form).find('[id="email"]').val();
-        var phone = $(form).find('[id="phone"]').val();
-
-        formData.push({ username: username, email: email, phone: phone }); // Fixed the property names
+            formData.push({ username: username, email: email, phone: phone });
+        });
+        addMultipleUsers(formData);
     });
-    addMultipleUsers(formData);
 });
