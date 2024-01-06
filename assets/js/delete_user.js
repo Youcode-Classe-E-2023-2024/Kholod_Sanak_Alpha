@@ -1,7 +1,6 @@
 //delete user
 $(document).on('click', '.delete-user', function () {
     let userId = $(this).data('user-id');
-    //console.log(userId)
 
     $.ajax({
         type: "DELETE",
