@@ -91,6 +91,5 @@
         });
     });
 </script>
-
 <script src="<?= PATH ?>assets/js/add_product.js"></script>
 
