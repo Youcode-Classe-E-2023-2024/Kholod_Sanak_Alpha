@@ -104,7 +104,7 @@
 
                         <li class="relative px-2 py-1 ">
                             <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 cursor-pointer hover:text-green-500"
-                               href="dashbord.html">
+                               href="index.php?page=dashboard">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                      viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -117,7 +117,7 @@
 
                         <li class="relative px-2 py-1" x-data="{ Open : false  }">
                             <a class="inline-flex items-center justify-between w-full text-base font-semibold transition-colors duration-150 text-gray-500  hover:text-yellow-400 cursor-pointer"
-                               href="products.html">
+                               href="index.php?page=products">
                                     <span
                                         class="inline-flex items-center  text-sm font-semibold text-white hover:text-green-400">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
@@ -132,7 +132,7 @@
                         <!--users-->
                         <li class="relative px-2 py-1 ">
                             <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 cursor-pointer hover:text-green-500"
-                               href="users.html">
+                               href="index.php?page=users">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="none"
                                      viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -336,44 +336,81 @@
 
                             </div>
                         </div>
+
+                         <!-- the number of posts and users -->
                         <div class="col-span-12 mt-5">
-                            <div class="grid gap-2 grid-cols-1 lg:grid-cols-2">
-                                <div class="bg-white shadow-lg p-4" id="chartline"></div>
-                                <div class="bg-white shadow-lg" id="chartpie"></div>
-                            </div>
+                            <div class="bg-white shadow-lg p-4" id="chart"></div>
+                        </div>
+                        <!-- how many posts have a user created -->
+                        <div class="col-span-12 mt-5">
+                        <div class="bg-white shadow-lg p-4"  id="chart1"></div>
                         </div>
 
+
+
+
+
+                        <script src="<?= PATH ?>assets/js/posts_nbr.js"></script>
+                        <script src="<?= PATH ?>assets/js/users_nbr.js"></script>
+                        <script src="<?= PATH ?>assets/js/chart.js"></script>
+
+
+
+
+                        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
                         <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
+
+
+
+
                         <script>
-                            // Fetch posts and update the content of the div
-                            const postsNumberElement = document.getElementById('posts_number');
+                            $(document).ready(function(){
+                                // Fetch data from the URL
+                                $.get('https://jsonplaceholder.typicode.com/posts', function(data){
+                                    // Process the data to count posts per user
+                                    var userPosts = {};
+                                    data.forEach(function(post){
+                                        if(userPosts[post.userId]){
+                                            userPosts[post.userId]++;
+                                        } else {
+                                            userPosts[post.userId] = 1;
+                                        }
+                                    });
 
-                            fetch('https://jsonplaceholder.typicode.com/posts')
-                                .then(res => res.json())
-                                .then(data => {
-                                    // Update the content with the length of posts
-                                    postsNumberElement.textContent = data.length;
-                                })
-                                .catch(error => {
-                                    console.error('Error fetching posts:', error);
-                                    postsNumberElement.textContent = 'Error loading posts';
+                                    // Prepare data for ApexCharts
+                                    var chartData = Object.keys(userPosts).map(function(userId){
+                                        return {
+                                            x: 'User ' + userId,
+                                            y: userPosts[userId]
+                                        };
+                                    });
+
+                                    // Create ApexCharts
+                                    var options = {
+                                        chart: {
+                                            type: 'area'
+                                        },
+                                        series: [{
+                                            name: 'Posts',
+                                            data: chartData
+                                        }],
+                                        xaxis: {
+                                            categories: chartData.map(function(item){ return item.x; })
+                                        }
+                                    };
+
+                                    var chart = new ApexCharts(document.querySelector("#chart1"), options);
+                                    chart.render();
                                 });
-
-                            // Fetch posts and update the content of the div
-                            const usersNumberElement = document.getElementById('users_number');
-
-                            fetch('https://jsonplaceholder.typicode.com/users')
-                                .then(res => res.json())
-                                .then(data => {
-                                    // Update the content with the length of posts
-                                    usersNumberElement.textContent = data.length;
-                                })
-                                .catch(error => {
-                                    console.error('Error fetching posts:', error);
-                                    usersNumberElement.textContent = 'Error loading posts';
-                                });
+                            });
                         </script>
+
+
+
+
+
+
                         <script>
                             function data() {
 
@@ -408,97 +445,3 @@
                                 }
                             }
                         </script>
-                        <script>
-                            var chart = document.querySelector('#chartline')
-                            var options = {
-                                series: [{
-                                    name: 'TEAM A',
-                                    type: 'area',
-                                    data: [44, 55, 31, 47, 31, 43, 26, 41, 31, 47, 33]
-                                }, {
-                                    name: 'TEAM B',
-                                    type: 'line',
-                                    data: [55, 69, 45, 61, 43, 54, 37, 52, 44, 61, 43]
-                                }],
-                                chart: {
-                                    height: 350,
-                                    type: 'line',
-                                    zoom: {
-                                        enabled: false
-                                    }
-                                },
-                                stroke: {
-                                    curve: 'smooth'
-                                },
-                                fill: {
-                                    type: 'solid',
-                                    opacity: [0.35, 1],
-                                },
-                                labels: ['Dec 01', 'Dec 02', 'Dec 03', 'Dec 04', 'Dec 05', 'Dec 06', 'Dec 07', 'Dec 08', 'Dec 09 ',
-                                    'Dec 10', 'Dec 11'
-                                ],
-                                markers: {
-                                    size: 0
-                                },
-                                yaxis: [{
-                                    title: {
-                                        text: 'Series A',
-                                    },
-                                },
-                                    {
-                                        opposite: true,
-                                        title: {
-                                            text: 'Series B',
-                                        },
-                                    },
-                                ],
-                                tooltip: {
-                                    shared: true,
-                                    intersect: false,
-                                    y: {
-                                        formatter: function(y) {
-                                            if (typeof y !== "undefined") {
-                                                return y.toFixed(0) + " points";
-                                            }
-                                            return y;
-                                        }
-                                    }
-                                }
-                            };
-                            var chart = new ApexCharts(chart, options);
-                            chart.render();
-                        </script>
-                        <script>
-                            var chart = document.querySelector('#chartpie')
-                            var options = {
-                                series: [44, 55, 67, 83],
-                                chart: {
-                                    height: 350,
-                                    type: 'radialBar',
-                                },
-                                plotOptions: {
-                                    radialBar: {
-                                        dataLabels: {
-                                            name: {
-                                                fontSize: '22px',
-                                            },
-                                            value: {
-                                                fontSize: '16px',
-                                            },
-                                            total: {
-                                                show: true,
-                                                label: 'Total',
-                                                formatter: function(w) {
-                                                    // By default this function returns the average of all series. The below is just an example to show the use of custom formatter function
-                                                    return 249
-                                                }
-                                            }
-                                        }
-                                    }
-                                },
-                                labels: ['Apples', 'Oranges', 'Bananas', 'Berries'],
-                            };
-                            var chart = new ApexCharts(chart, options);
-                            chart.render();
-                        </script>
-
