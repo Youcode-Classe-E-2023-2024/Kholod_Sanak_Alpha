@@ -35,7 +35,46 @@ $(document).ready(function () {
         const chart = new ApexCharts(document.querySelector("#chart"), options);
         chart.render();
     }).fail(function (error) {
-        console.error('Error fetching data:', error);
-        // Handle error (e.g., display an error message)
+        //console.error('Error fetching data:', error);
+    });
+});
+
+    $(document).ready(function(){
+    // Fetch data from the URL
+    $.get('https://jsonplaceholder.typicode.com/posts', function(data){
+        // Process the data to count posts per user
+        var userPosts = {};
+        data.forEach(function(post){
+            if(userPosts[post.userId]){
+                userPosts[post.userId]++;
+            } else {
+                userPosts[post.userId] = 1;
+            }
+        });
+
+        // Prepare data for ApexCharts
+        var chartData = Object.keys(userPosts).map(function(userId){
+            return {
+                x: 'User ' + userId,
+                y: userPosts[userId]
+            };
+        });
+
+        // Create ApexCharts
+        var options = {
+            chart: {
+                type: 'area'
+            },
+            series: [{
+                name: 'Posts',
+                data: chartData
+            }],
+            xaxis: {
+                categories: chartData.map(function(item){ return item.x; })
+            }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart1"), options);
+        chart.render();
     });
 });
