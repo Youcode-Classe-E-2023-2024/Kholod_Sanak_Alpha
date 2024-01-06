@@ -10,7 +10,7 @@ $(document).ready(function () {
             postsNumberElement.text(data.length);
         },
         error: function (error) {
-            console.error('Error fetching posts:', error);
+            //console.error('Error fetching posts:', error);
             postsNumberElement.text('Error loading posts');
         }
     });
