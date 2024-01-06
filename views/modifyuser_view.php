@@ -11,7 +11,7 @@
                     </div>
                     <!-- Username -->
                     <div class="lg:col-span-2">
-                        <form id="modifyProductForm">
+                        <form id="modifyUserForm">
                             <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
                                 <div class="md:col-span-3">
                                     <label for="username">Username</label>
