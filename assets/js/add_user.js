@@ -6,7 +6,7 @@ function addUserFormSubmit() {
         phone: $('#phone').val(),
         email: $('#email').val(),
     };
-    console.log(formData);
+    //console.log(formData);
 
     // Send POST request to the server
     $.ajax({
@@ -14,7 +14,7 @@ function addUserFormSubmit() {
         url: "https://jsonplaceholder.typicode.com/users",
         data: formData, // Removed unnecessary object wrapping
         success: function (data, status) {
-            console.log(status);
+            //console.log(status);
             if (status === "success") {
                 alert("User has been added successfully!");
             } else {
@@ -23,6 +23,9 @@ function addUserFormSubmit() {
         }
     });
 }
+$(document).ready(function () {
+    $('#save').click(addUserFormSubmit);
+});
 
 function addMultipleUsers(userArray) {
     userArray.forEach((user) => {
@@ -30,13 +33,11 @@ function addMultipleUsers(userArray) {
     });
 }
 
-$(document).ready(function () {
-    $('#save').click(addUserFormSubmit);
-});
+
 
 $('#save').click(function () {
     //e.preventDefault();
-    var userForms = $("#addUserForm"); 
+    var userForms = $("#addUserForm");
     var formData = [];
 
     userForms.each(function (index, form) {
