@@ -11,38 +11,47 @@
                     </div>
                     <!-- Username -->
                     <div class="lg:col-span-2">
-                        <form id="addUserForm">
-                            <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
-                                <div class="md:col-span-3">
-                                    <label for="username">Username</label>
-                                    <input type="text" id="username" placeholder="Enter your Username"
-                                           class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"/>
-                                </div>
-
-                                <!-- Email -->
-                                <div class="md:col-span-3">
-                                    <label for="email">Email</label>
-                                    <input type="text" id="email" placeholder="Enter Your Email ....."
-                                           class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"/>
-                                </div>
-                                <!-- Phone -->
-                                <div class="md:col-span-3">
-                                    <label for="phone">Phone</label>
-                                    <input type="text" id="phone" placeholder="Enter Your Phone Number ....."
-                                           class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"/>
-                                </div>
-
-                                <!-- Submit button-->
-                                <div class="md:col-span-5 text-right">
-                                    <div class="inline-flex items-end">
-                                        <button
-                                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                            Submit
-                                        </button>
+                        <div id="userForms">
+                            <form id="addUserForm">
+                                <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
+                                    <div class="md:col-span-3">
+                                        <label for="username">Username</label>
+                                        <input type="text" id="username" placeholder="Enter your Username"
+                                               class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"/>
                                     </div>
+
+                                    <!-- Email -->
+                                    <div class="md:col-span-3">
+                                        <label for="email">Email</label>
+                                        <input type="text" id="email" placeholder="Enter Your Email ....."
+                                               class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"/>
+                                    </div>
+                                    <!-- Phone -->
+                                    <div class="md:col-span-3">
+                                        <label for="phone">Phone</label>
+                                        <input type="text" id="phone" placeholder="Enter Your Phone Number ....."
+                                               class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"/>
+                                    </div>
+
+
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Submit button-->
+                            <div class="md:col-span-5 text-right">
+                                <div class="inline-flex items-end">
+                                    <button id="save"
+                                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                        Submit
+                                    </button>
+                                    <!-- Add Another User button -->
+                                    <button id="adduser"
+                                            class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ml-2">
+                                        Add Another User
+                                    </button>
                                 </div>
                             </div>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -57,8 +66,29 @@
     </div>
 </div>
 
-<!-- Include jQuery -->
+<!-- multiple Add -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        let formCounter = 1;
+
+        $("#adduser").on("click", function (event) {
+            event.preventDefault();
+
+            // Clone the user form
+            const originalForm = $("#addUserForm");
+            const clonedForm = originalForm.clone();
+
+            // Append the cloned form to the userForms div
+            $("#userForms").append(clonedForm);
+
+            // Display the form number outside the form
+            $("#userForms").append(`<p class="text-red-500 m-6">Form ${formCounter + 1}</p>`);
+
+            formCounter++;
+        });
+    });
+</script>
 
 <script src="<?= PATH ?>assets/js/add_user.js"></script>
 
