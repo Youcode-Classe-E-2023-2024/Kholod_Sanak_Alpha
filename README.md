@@ -5,6 +5,15 @@
 Welcome to the XENO Enterprise website repository! Our goal is to create a fully functional website, devoid of any branding, allowing us to focus on the core functionalities. Once the site functionalities are robust and streamlined, we'll move on to the branding aspect.
 
 ### Screenshot
+#### Dashboard
+<img width="943" alt="dashboard" src="https://github.com/Youcode-Classe-E-2023-2024/Kholod_Sanak_Alpha/assets/37482825/cef405e8-6275-4cf5-a7ed-bba21aa99402">
+
+#### Products List
+<img width="943" alt="products" src="https://github.com/Youcode-Classe-E-2023-2024/Kholod_Sanak_Alpha/assets/37482825/d39bc70c-e5bf-4471-abba-4fe18cc8f12e">
+
+#### Users List
+<img width="947" alt="users" src="https://github.com/Youcode-Classe-E-2023-2024/Kholod_Sanak_Alpha/assets/37482825/7bdaffa2-77c4-4dc3-b773-5533e5e0b856">
+
 
 ### Features
 #### Dashboard
